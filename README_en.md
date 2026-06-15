@@ -19,7 +19,7 @@ python harness/selfcheck.py
 ./bin/practice/observathon-sim --config solution/config.json --wrapper solution/wrapper.py \
     --out run_output.json --concurrency 8
 #   macOS first run: xattr -dr com.apple.quarantine bin/practice/observathon-sim
-#   Windows:        bin\practice\observathon-sim.exe ...
+#   Windows:        bin\practice\observathon-sim\observathon-sim.exe ...   (exe lives INSIDE its folder)
 ```
 The agent emits **nothing** and `run_output.json` is **lean by design** — every row has only
 `answer` + `status` (no latency, no tokens, no tool calls, no trace). The ONLY way to see
@@ -46,7 +46,7 @@ order notes). **Rewrite `solution/prompt.txt`** — it's the highest-leverage fi
 | OS / arch | file |
 |---|---|
 | macOS (Apple Silicon, M1+) | `observathon-sim` / `observathon-score` (arm64) |
-| Windows | `observathon-sim.exe` / `observathon-score.exe` |
+| Windows | unzip the folder, run `observathon-sim\observathon-sim.exe` / `observathon-score\observathon-score.exe` (keep the folder intact) |
 | Linux | `observathon-sim` / `observathon-score` (x86_64) |
 
 (macOS Intel isn't pre-built — on Intel, run from source with Python + `openai`.) macOS

@@ -1,0 +1,23 @@
+[
+  {
+    "qid": "debug-001",
+    "question": "Mua 5 iPad voi coupon VIP20 giao hải phòng - tong cong bao nhieu VND?",
+    "spec": {},
+    "session": "debug-001",
+    "turn": 0
+  },
+  {
+    "qid": "debug-002",
+    "question": "Mua 2 MacBook giao TP HCM, tong thanh toan bao nhieu?",
+    "spec": {},
+    "session": "debug-002",
+    "turn": 0
+  },
+  {
+    "qid": "debug-003",
+    "question": "Mua 5 MacBook ap dung ma SALE15 giao den Can Tho - tong cong bao nhieu VND?",
+    "spec": {},
+    "session": "debug-003",
+    "turn": 0
+  }
+]

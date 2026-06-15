@@ -20,7 +20,7 @@ python harness/selfcheck.py
 ./bin/practice/observathon-sim --config solution/config.json --wrapper solution/wrapper.py \
     --out run_output.json --concurrency 8
 #   macOS lần đầu: xattr -dr com.apple.quarantine bin/practice/observathon-sim
-#   Windows:      bin\practice\observathon-sim.exe ...
+#   Windows:      bin\practice\observathon-sim\observathon-sim.exe ...   (exe lives INSIDE its folder)
 ```
 Agent **không phát ra gì cả** và `run_output.json` **cố tình tối giản** — mỗi dòng chỉ có
 `answer` + `status` (không có latency, tokens, lời gọi tool, hay trace). Cách DUY NHẤT để thấy
@@ -48,7 +48,7 @@ cao nhất và là một thành phần điểm **`prompt` chiếm 15%**. Xem
 | HĐH / kiến trúc | tệp |
 |---|---|
 | macOS (Apple Silicon, M1+) | `observathon-sim` / `observathon-score` (arm64) |
-| Windows | `observathon-sim.exe` / `observathon-score.exe` |
+| Windows | unzip the folder, run `observathon-sim\observathon-sim.exe` / `observathon-score\observathon-score.exe` (keep the folder intact) |
 | Linux | `observathon-sim` / `observathon-score` (x86_64) |
 
 (macOS Intel không có sẵn binary — trên Intel hãy chạy từ mã nguồn với Python + `openai`.)

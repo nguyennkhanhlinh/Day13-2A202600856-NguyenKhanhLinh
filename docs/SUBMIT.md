@@ -32,10 +32,10 @@ export OPENAI_API_KEY=sk-...                 # cloud (default model gpt-5.4-nano
 | OS / arch | file |
 |---|---|
 | macOS (Apple Silicon, M1+) | `observathon-sim` / `observathon-score` (arm64) |
-| Windows | `observathon-sim.exe` / `observathon-score.exe` |
+| Windows | unzip the folder, run `observathon-sim\observathon-sim.exe` / `observathon-score\observathon-score.exe` (keep the folder intact) |
 | Linux | `observathon-sim` / `observathon-score` (x86_64) |
 
-(macOS Intel is not pre-built — Apple-Silicon, Windows and Linux are provided; on Intel,
+On **Windows** the binaries ship as a **folder** (PyInstaller onedir, to avoid a Python-DLL load error): unzip it and run `observathon-sim\observathon-sim.exe` from *inside* the folder — don't move the .exe out. (macOS Intel is not pre-built — Apple-Silicon, Windows and Linux are provided; on Intel,
 run from source with Python + `openai`.)
 
 ## Phases

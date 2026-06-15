@@ -1,0 +1,21 @@
+{
+  "team": "E403_2A202600854_ThanMinhHieu",
+  "phase": "private",
+  "headline": 79.99,
+  "sub": {
+    "correct": 0.545,
+    "quality": 0.7129,
+    "error": 1.0,
+    "latency": 0.1601,
+    "cost": 0.0,
+    "drift": 0.5685,
+    "prompt": 0.7258
+  },
+  "diag_f1": 1.0,
+  "n": 80,
+  "n_correct": 37,
+  "judge_mode": "offline",
+  "weights_hash": "e81a8ed58d93",
+  "key_hash": "7e3905b75db0",
+  "sig": "f2b9e479f5b41cde17c1cec5cc9c13d94dda940621dfa19b1be7518eda6261b3"
+}

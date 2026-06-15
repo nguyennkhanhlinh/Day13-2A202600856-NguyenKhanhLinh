@@ -1,12 +1,72 @@
 {
-  "team": "TODO-team-name",
+  "team": "E403_2A202600854_ThanMinhHieu",
   "schema_version": 1,
   "findings": [
     {
+      "fault_class": "arithmetic_error",
+      "evidence": {"metric": "prompt/config inspection", "observed": "High temperature and weak prompt allow estimated totals instead of exact integer arithmetic.", "trace_ids": []},
+      "root_cause": "Original prompt did not define the subtotal, discount, shipping, and verification formula.",
+      "suggested_fix": "Rewrite prompt with exact formula, lower temperature, enable verify and self_consistency."
+    },
+    {
+      "fault_class": "fabrication",
+      "evidence": {"metric": "prompt inspection", "observed": "Original prompt asked to help and give a total without requiring grounded tool data or refusal.", "trace_ids": []},
+      "root_cause": "The agent could answer before checking stock or destination support.",
+      "suggested_fix": "Require tool-first grounding and refuse without a total when stock, product, destination, or tool data is invalid."
+    },
+    {
+      "fault_class": "pii_leak",
+      "evidence": {"metric": "config/prompt inspection", "observed": "redact_pii was disabled and the original prompt did not forbid repeating customer PII.", "trace_ids": []},
+      "root_cause": "No output redaction or instruction to suppress email and phone values.",
+      "suggested_fix": "Enable redact_pii and redact wrapper output before returning."
+    },
+    {
+      "fault_class": "tool_overuse",
+      "evidence": {"metric": "config inspection", "observed": "tool_budget was unlimited and max_steps was high.", "trace_ids": []},
+      "root_cause": "The agent had no strong limit or prompt rule to call each needed tool once.",
+      "suggested_fix": "Set tool_budget, enable loop_guard, reduce max_steps, and instruct one call per required tool."
+    },
+    {
+      "fault_class": "prompt_injection",
+      "evidence": {"metric": "private-phase risk from lab docs", "observed": "Order notes may contain fake system instructions or fake prices.", "trace_ids": []},
+      "root_cause": "Original prompt did not distinguish trusted tool data from untrusted order notes.",
+      "suggested_fix": "Prompt treats notes as data only; wrapper marks note sections as untrusted before calling the agent."
+    },
+    {
+      "fault_class": "error_spike",
+      "evidence": {"metric": "config inspection", "observed": "tool_error_rate was initially 0.18 and retry was disabled.", "trace_ids": []},
+      "root_cause": "Intermittent tool failures were allowed without retry/backoff.",
+      "suggested_fix": "Set tool_error_rate to 0 for the fixed config and enable retry in config/wrapper."
+    },
+    {
       "fault_class": "latency_spike",
-      "evidence": {"metric": "latency_p95_ms", "observed": "TODO from your telemetry", "trace_ids": []},
-      "root_cause": "TODO: what config knob or behavior causes it?",
-      "suggested_fix": "TODO: config change and/or wrapper mitigation"
+      "evidence": {"metric": "telemetry latency_ms", "observed": "Multi-tool requests showed long-tail latency in wrapper logs, especially when planner and self_consistency were active.", "trace_ids": []},
+      "root_cause": "Extra planning/self-consistency passes and repeated tool calls increase tail latency.",
+      "suggested_fix": "Keep max_steps/tool_budget bounded, cache repeated questions, and log P95/P99 latency."
+    },
+    {
+      "fault_class": "cost_blowup",
+      "evidence": {"metric": "telemetry usage.total_tokens", "observed": "Wrapper logs showed high token usage on multi-step orders; original config also used verbose_system and large context.", "trace_ids": []},
+      "root_cause": "Verbose prompt/context plus repeated LLM/tool loops inflated prompt and completion tokens.",
+      "suggested_fix": "Disable verbose_system, reduce context_size/max_completion_tokens, cache repeats, and keep the prompt compact."
+    },
+    {
+      "fault_class": "quality_drift",
+      "evidence": {"metric": "config inspection", "observed": "session_drift_rate was initially 0.06 and context_reset_every was disabled.", "trace_ids": []},
+      "root_cause": "Long sessions could accumulate stale or corrupted context.",
+      "suggested_fix": "Set session_drift_rate to 0 in config and reset context every few turns."
+    },
+    {
+      "fault_class": "infinite_loop",
+      "evidence": {"metric": "config inspection", "observed": "loop_guard was initially false, max_steps was high, and tool_budget was unlimited.", "trace_ids": []},
+      "root_cause": "The agent could repeat the same action without a guard.",
+      "suggested_fix": "Enable loop_guard, reduce max_steps, and set tool_budget."
+    },
+    {
+      "fault_class": "tool_failure",
+      "evidence": {"metric": "config inspection", "observed": "normalize_unicode was disabled and catalog_override marked macbook out of stock incorrectly.", "trace_ids": []},
+      "root_cause": "Unicode city/product variants and stale catalog overrides could make valid tool calls fail or contradict reality.",
+      "suggested_fix": "Enable normalize_unicode and clear catalog_override."
     }
   ]
 }
